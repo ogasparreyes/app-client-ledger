@@ -1,1 +1,490 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* ==========================================================================
+   Tokens de diseño
+   ========================================================================== */
+:root {
+  --app-primary: #465fff;
+  --app-primary-soft: #ecf3ff;
+  --app-surface: #ffffff;
+  --app-page-bg: #f9fafb;
+  --app-border: #e4e7ec;
+  --app-text: #344054;
+  --app-heading: #101828;
+  --app-muted: #98a2b3;
+  --app-hover: #f2f4f7;
+  --app-success: #039855;
+  --app-success-soft: #ecfdf3;
+  --app-danger: #b42318;
+  --app-danger-soft: #fef3f2;
+
+  --sidebar-width: 290px;
+  --sidebar-width-collapsed: 90px;
+  --topbar-height: 74px;
+}
+
+[data-bs-theme="dark"] {
+  --app-primary-soft: rgba(70, 95, 255, 0.18);
+  --app-surface: #1d2939;
+  --app-page-bg: #101828;
+  --app-border: #344054;
+  --app-text: #d0d5dd;
+  --app-heading: #f9fafb;
+  --app-muted: #667085;
+  --app-hover: #344054;
+  --app-success-soft: rgba(3, 152, 85, 0.2);
+  --app-danger-soft: rgba(180, 35, 24, 0.2);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--app-page-bg);
+  color: var(--app-text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--app-heading);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Shell: sidebar + columna principal
+   ========================================================================== */
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.25s ease;
+}
+
+.app-content {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+.app-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  background: var(--app-surface);
+  border-right: 1px solid var(--app-border);
+  transition: width 0.25s ease, transform 0.25s ease;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  height: 2.5rem;
+  margin: 0 0.5rem 1.5rem;
+  color: var(--app-heading);
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: var(--app-primary);
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.menu-section-title {
+  margin: 1.25rem 0 0.5rem;
+  padding: 0 0.75rem;
+  color: var(--app-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-list li {
+  list-style: none;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--app-text);
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menu-item:hover {
+  background: var(--app-hover);
+  color: var(--app-heading);
+}
+
+.menu-item.is-active {
+  background: var(--app-primary-soft);
+  color: var(--app-primary);
+}
+
+.menu-icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  font-size: 1.125rem;
+  text-align: center;
+}
+
+.menu-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-badge {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--app-success-soft);
+  color: var(--app-success);
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.menu-chevron {
+  color: var(--app-muted);
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.menu-item.is-open .menu-chevron {
+  transform: rotate(180deg);
+}
+
+.menu-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  margin: 0.25rem 0 0;
+  padding: 0 0 0 2.75rem;
+  list-style: none;
+}
+
+.menu-sub[hidden] {
+  display: none;
+}
+
+.menu-sub .menu-item {
+  padding: 0.45rem 0.75rem;
+  font-size: 0.925rem;
+  font-weight: 400;
+}
+
+/* Modo contraído (solo escritorio): solo iconos. La clase la pone app.js en #app. */
+.app-shell.is-collapsed .app-sidebar {
+  width: var(--sidebar-width-collapsed);
+  padding-inline: 0.75rem;
+}
+
+.app-shell.is-collapsed .app-main {
+  margin-left: var(--sidebar-width-collapsed);
+}
+
+.app-shell.is-collapsed .sidebar-brand {
+  justify-content: center;
+  margin: 0 0 1.5rem;
+}
+
+.app-shell.is-collapsed .brand-name,
+.app-shell.is-collapsed .menu-label,
+.app-shell.is-collapsed .menu-badge,
+.app-shell.is-collapsed .menu-chevron,
+.app-shell.is-collapsed .menu-sub {
+  display: none;
+}
+
+.app-shell.is-collapsed .menu-item {
+  justify-content: center;
+  padding: 0.6rem;
+}
+
+.app-shell.is-collapsed .menu-section-title {
+  height: 1px;
+  margin: 1rem 0.5rem;
+  padding: 0;
+  font-size: 0;
+  background: var(--app-border);
+}
+
+/* Backdrop del cajón móvil (oculto en escritorio) */
+.backdrop {
+  display: none;
+}
+
+/* ==========================================================================
+   Topbar
+   ========================================================================== */
+.app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  height: var(--topbar-height);
+  padding: 0 1.5rem;
+  background: var(--app-surface);
+  border-bottom: 1px solid var(--app-border);
+}
+
+.icon-btn {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--app-border);
+  border-radius: 0.75rem;
+  background: var(--app-surface);
+  color: var(--app-text);
+}
+
+.icon-btn:hover {
+  background: var(--app-hover);
+}
+
+.icon-btn .dot {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.55rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #fb6514;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.user-chip {
+  position: relative;
+}
+
+.user-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--app-heading);
+  font-weight: 600;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: var(--app-primary-soft);
+  color: var(--app-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.user-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 1050;
+  min-width: 220px;
+  margin: 0;
+  padding: 0.5rem;
+  list-style: none;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 24px rgba(16, 24, 40, 0.12);
+}
+
+.user-menu button {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--app-text);
+  text-align: left;
+}
+
+.user-menu button:hover {
+  background: var(--app-hover);
+}
+
+/* ==========================================================================
+   Tarjetas y lienzo del panel
+   ========================================================================== */
+.dash-card {
+  padding: 1.25rem 1.5rem;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 1rem;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.card-head h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Lienzo: rejilla de 12 columnas. Cada componente indica su ancho con --span. */
+.canvas {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.canvas-widget {
+  grid-column: span var(--span, 12);
+  min-width: 0;
+}
+
+.canvas-empty {
+  grid-column: 1 / -1;
+  padding: 4rem 1.5rem;
+  border: 2px dashed var(--app-border);
+  border-radius: 1rem;
+  color: var(--app-muted);
+  text-align: center;
+}
+
+.canvas-empty code {
+  color: var(--app-text);
+}
+
+/* Página de marcador */
+.placeholder {
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.placeholder > i {
+  color: var(--app-primary);
+  font-size: 2.5rem;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 991.98px) {
+  /* En móvil el sidebar es un cajón que entra y sale; el contenido ocupa todo el ancho */
+  .app-main {
+    margin-left: 0;
+  }
+
+  .app-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .app-shell.is-mobile-open .app-sidebar {
+    transform: none;
+    box-shadow: 0 0 32px rgba(16, 24, 40, 0.2);
+  }
+
+  .app-shell.is-mobile-open .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1035;
+    display: block;
+    background: rgba(16, 24, 40, 0.45);
+  }
+
+  /* Los componentes del lienzo pasan a ancho completo */
+  .canvas-widget {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .app-topbar {
+    padding: 0 0.75rem;
+  }
+
+  .user-name {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar,
+  .app-main,
+  .menu-chevron {
+    transition: none;
+  }
+}

@@ -1,0 +1,33 @@
+<nav id="menu">
+
+    @for (section of sections; track section.title) {
+    <p class="menu-section-title">{{section.title}}</p>
+
+    <ul class="menu-list">
+        @for (item of section.items; track item.label) {
+        <li>
+            @if (isMenuGroup(item)) {
+            <button type="button" class="menu-item" data-toggle-group [class.is-open]="isOpen(item)"
+                [attr.aria-expanded]="isOpen(item)" [attr.title]="item.label" (click)="toggle(item)">
+                <i class="menu-icon bi bi-{{ item.icon }}"></i>
+                <span class="menu-label">{{ item.label }}</span>
+                <i class="bi bi-chevron-down menu-chevron"></i></button>
+            }@else {
+            <a class="menu-item" [routerLink]="item.route" routerLinkActive="is-active"
+                [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page" [attr.data-route]="item.route"
+                [attr.title]="item.label">
+                @if (item.icon) {
+                <i class="menu-icon bi bi-{{ item.icon }}"></i>
+                }
+                <span class="menu-label">{{ item.label }}</span>
+                @if (item.badge) {
+                <span class="menu-badge">{{ item.badge }}</span>
+                }
+            </a>
+            }
+        </li>
+        }
+    </ul>
+    }
+
+</nav>
