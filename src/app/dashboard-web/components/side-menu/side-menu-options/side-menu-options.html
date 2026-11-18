@@ -11,7 +11,31 @@
                 [attr.aria-expanded]="isOpen(item)" [attr.title]="item.label" (click)="toggle(item)">
                 <i class="menu-icon bi bi-{{ item.icon }}"></i>
                 <span class="menu-label">{{ item.label }}</span>
+                 @if (item.badge) {
+                <span class="menu-badge">{{ item.badge }}</span>
+              }
+            
                 <i class="bi bi-chevron-down menu-chevron"></i></button>
+
+                <ul class="menu-sub" [hidden]="!isOpen(item)">
+              @for (child of item.children; track child.route) {
+                <li>
+                  <a
+                    class="menu-item"
+                    [routerLink]="child.route"
+                    routerLinkActive="is-active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    ariaCurrentWhenActive="page"
+                    [attr.data-route]="child.route"
+                    [attr.title]="child.label"
+                  >
+                    <span class="menu-label">{{ child.label }}</span>
+                  </a>
+                </li>
+              }
+            </ul>
+
+
             }@else {
             <a class="menu-item" [routerLink]="item.route" routerLinkActive="is-active"
                 [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page" [attr.data-route]="item.route"

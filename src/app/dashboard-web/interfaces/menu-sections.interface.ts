@@ -32,13 +32,14 @@ export const MENU_SECTIONS: MenuSection[] = [
         label: 'Workflow',
         icon: 'grid-1x2',
         expanded: true,
+          badge: 'Beta',
         children: [
           { label: 'Resumen', route: '/' },
           { label: 'Analítica', route: '/panel/analitica' },
         ],
       },
 
-      { label: 'Workflows', icon: 'rocket-takeoff', route: '/perfil' },
+      { label: 'Workflows', icon: 'rocket-takeoff', route: '/perfil',  badge: 'Nuevo', },
       { label: 'Schedules', icon: 'clock-history', route: '/perfil' },
       { label: 'Batch', icon: 'layers', route: '/perfil' },
       { label: 'Archive', icon: 'archive', route: '/perfil' },
