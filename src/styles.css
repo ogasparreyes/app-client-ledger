@@ -117,7 +117,7 @@ button {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 0.75rem;
-  background: var(--app-primary);
+  background: #F58025;
   color: #fff;
   font-size: 1.25rem;
 }
@@ -487,4 +487,22 @@ button {
   .menu-chevron {
     transition: none;
   }
+}
+
+/* Encabezado negro con texto blanco en cualquier tema */
+.table-container thead th {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+/* Enlaces en ámbar oscuro */
+.run-link {
+  color: #8a5300;
+}
+
+/* Página activa en azul grisáceo */
+.pagination .page-item.active .page-link {
+  background-color: #aabcdb;
+  border-color: #aabcdb;
+  color: #111111;
 }
